@@ -3,8 +3,6 @@
 
 #include <QResizeEvent>
 
-#include "numpad.h"
-
 Registro::Registro(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Registro)
@@ -53,10 +51,14 @@ void Registro::resizeEvent(QResizeEvent *)
 
 void Registro::configurarWidgets()
 {
-    ui->scene->setWindowOpacity(0.5);
+
     int altoBoton = this->height() / 10;
     int altoLabel = altoBoton;
+#ifdef DESKTOP
+    int altoTextoLabel = 2 * altoLabel / 5;
+#else
     int altoTextoLabel = altoLabel / 5;
+#endif
     int altoCamara = 2 * this->height() / 3;
     int anchoPantalla = this->width();
     int altoPantalla = this->height();
@@ -68,7 +70,6 @@ void Registro::configurarWidgets()
     ui->pbRegistrar->setFont( font );
     ui->pbRegistrar->setColor( "#9c27b0" );
     ui->pbRegistrar->setTexto( "Ingresar" );
-
 
     ui->label->setGeometry( QRect( 0, 0, anchoPantalla, altoLabel ) );
     ui->scene->setGeometry( QRect( 0, altoLabel, anchoPantalla, altoCamara ) );

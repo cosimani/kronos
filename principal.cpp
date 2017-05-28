@@ -61,18 +61,26 @@ void Principal::configurarWidgets()
 {
     int altoBoton = this->height() / 10;
     int altoLabel = altoBoton;
+
+#ifdef DESKTOP
+    int altoTextoLabel = 2 * altoLabel / 5;
+#else
     int altoTextoLabel = altoLabel / 5;
+#endif
 
     QFont font("Angelina", altoTextoLabel, QFont::Bold);
 
-    ui->pbGame->setColor( "#e91e63" );  ui->pbGame->setTexto( "Game" );
-    ui->pbGame->setFont(font);
+    ui->label->setFont(font);
+    ui->label->setText( "Kronos" );
+
+    ui->boton1->setColor( "#e91e63" );  ui->boton1->setTexto( "Boton 1" );
+    ui->boton1->setFont(font);
     ui->pbIngreso->setColor( "#9c27b0" );  ui->pbIngreso->setTexto( "Registrar ingreso" );
     ui->pbIngreso->setFont(font);
-    ui->b3->setColor( "#673ab7" );  ui->b3->setTexto( "" );
-    ui->b3->setFont(font);
-    ui->b4->setColor( "#3f51b5" );  ui->b4->setTexto( "" );
-    ui->b4->setFont(font);
+    ui->boton3->setColor( "#673ab7" );  ui->boton3->setTexto( "Boton 3" );
+    ui->boton3->setFont(font);
+    ui->boton4->setColor( "#3f51b5" );  ui->boton4->setTexto( "Boton 4" );
+    ui->boton4->setFont(font);
     ui->pbSalida->setColor( "#009688" );  ui->pbSalida->setTexto( "Registrar salida" );
     ui->pbSalida->setFont(font);
 
