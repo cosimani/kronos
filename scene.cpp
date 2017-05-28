@@ -57,6 +57,7 @@ Scene::Scene(QWidget *parent) : QWidget(parent),
     QObject::connect(rect, SIGNAL(signal_imageProcessing(QString)), this, SLOT(slot_imageProcessing(QString)));
     QObject::connect(rect, SIGNAL(signal_imagePath(QString)), this, SLOT(slot_imagePath(QString)));
 
+
     connect(manager, SIGNAL(finished(QNetworkReply*)), this, SLOT(slot_uploadFinished(QNetworkReply*)));
 
     connect( placeTimer, SIGNAL( timeout() ), SLOT( showPlaceAgain() ) );
@@ -65,7 +66,37 @@ Scene::Scene(QWidget *parent) : QWidget(parent),
 
 Scene::~Scene()
 {
+    this->apagarCamara();
     delete ui;
+}
+
+void Scene::apagarCamara()
+{
+    QObject *object = dynamic_cast<QObject*>(ui->quickWidget->rootObject());
+
+    QVariant returnedValue;
+    QVariant msg = "Hello from C++";
+    QMetaObject::invokeMethod(object, "cerrarCamara",
+            Q_RETURN_ARG(QVariant, returnedValue),
+            Q_ARG(QVariant, msg));
+
+    qDebug() << "QML function returned:" << returnedValue.toString();
+
+}
+
+void Scene::encenderCamara()
+{
+    QObject *object = dynamic_cast<QObject*>(ui->quickWidget->rootObject());
+
+    QVariant returnedValue;
+    QVariant msg = "Hello from C++";
+    QMetaObject::invokeMethod(object, "abrirCamara",
+            Q_RETURN_ARG(QVariant, returnedValue),
+            Q_ARG(QVariant, msg));
+
+    qDebug() << "QML function returned:" << returnedValue.toString();
+
+
 }
 
 void Scene::slot_imageProcessing( const QString& path )  {
@@ -111,12 +142,12 @@ void Scene::slot_imageProcessing( const QString& path )  {
 
     manager->post(request, baDatos);
 
+
 }
 
 void Scene::slot_imagePath(const QString &path)
 {
 //    qDebug() << " Se borro la imagen " << path << QFile::remove(path);
-
 }
 
 void Scene::slot_uploadFinished(QNetworkReply *reply)

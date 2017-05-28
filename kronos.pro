@@ -2,13 +2,13 @@ QT += widgets network multimedia quick qml quickwidgets sql
 
 TEMPLATE = app
 
-DEFINES += NO_DEBUG_ARUCO
-
 ! contains(ANDROID_TARGET_ARCH, armeabi-v7a)  {  # Si no es para Android entonces para Desktop
 
-    message( Compilacion para Desktop )
+#    message( Compilacion para Desktop )
 
-    unix:DIR_OPENCV_LIBS = /usr/local/lib
+###############################################################################################
+    unix:DIR_OPENCV_LIBS = /usr/local/lib  ####################################################
+###############################################################################################
 
     unix:INCLUDEPATH += "/usr/include/GL/"                             # OpenGL
     unix:LIBS += "/usr/lib/x86_64-linux-gnu/libglut.so"                # OpenGL
@@ -19,32 +19,18 @@ DEFINES += NO_DEBUG_ARUCO
     unix:LIBS += $$DIR_OPENCV_LIBS/libopencv_objdetect.so    # OpenCV
     unix:LIBS += $$DIR_OPENCV_LIBS/libopencv_calib3d.so      # OpenCV
     unix:LIBS += $$DIR_OPENCV_LIBS/libopencv_ml.so           # OpenCV
-    #unix:LIBS += $$DIR_OPENCV_LIBS/libopencv_contrib.so     # OpenCV
-
-    unix:LIBS += $$DIR_OPENCV_LIBS/libopencv_video.so
     unix:LIBS += $$DIR_OPENCV_LIBS/libopencv_features2d.so
 
-    unix:LIBS += $$DIR_OPENCV_LIBS/libopencv_flann.so
-    #unix:LIBS += $$DIR_OPENCV_LIBS/libopencv_gpu.so
-    #unix:LIBS += $$DIR_OPENCV_LIBS/libopencv_legacy.so
-    unix:LIBS += $$DIR_OPENCV_LIBS/libopencv_ml.so
-    #unix:LIBS += $$DIR_OPENCV_LIBS/libopencv_ocl.so
-    unix:LIBS += $$DIR_OPENCV_LIBS/libopencv_photo.so
-    unix:LIBS += $$DIR_OPENCV_LIBS/libopencv_stitching.so
-    unix:LIBS += $$DIR_OPENCV_LIBS/libopencv_superres.so
-    #unix:LIBS += $$DIR_OPENCV_LIBS/libopencv_ts.so
-    unix:LIBS += $$DIR_OPENCV_LIBS/libopencv_video.so
-    unix:LIBS += $$DIR_OPENCV_LIBS/libopencv_videostab.so
-    unix:LIBS += $$DIR_OPENCV_LIBS/libopencv_imgcodecs.so
-    unix:LIBS += $$DIR_OPENCV_LIBS/libopencv_videoio.so
-
+    DEFINES += DESKTOP
 }
 
 contains(ANDROID_TARGET_ARCH, armeabi-v7a)  {  # Para Android
 
-    message( Compilacion para Android )
+#    message( Compilacion para Android )
 
-    DIR_ANDROID_OPENCV = /home/cosimani/Proyecto/2017/OpenCV-3.2.0-android-sdk/sdk/native
+###############################################################################################
+    DIR_ANDROID_OPENCV = /home/cosimani/Proyecto/2017/OpenCV-3.2.0-android-sdk/sdk/native #####
+###############################################################################################
 
     INCLUDEPATH += $$DIR_ANDROID_OPENCV/jni/include
 
@@ -74,41 +60,37 @@ contains(ANDROID_TARGET_ARCH, armeabi-v7a)  {  # Para Android
 
     ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 
-#    contains(ANDROID_TARGET_ARCH, armeabi-v7a) {
-        ANDROID_EXTRA_LIBS = /home/cosimani/Proyecto/2017/app/app/../../OpenCV-3.2.0-android-sdk/sdk/native/libs/armeabi-v7a/libopencv_java3.so
-#    }
-
+    ANDROID_EXTRA_LIBS = $$DIR_ANDROID_OPENCV/libs/armeabi-v7a/libopencv_java3.so
 }
-
-
-
 
 SOURCES += \
     main.cpp \
     image.cpp \
-    game.cpp \
     indexedbutton.cpp \
     scene.cpp \
     squircle.cpp \
     database.cpp \
     boton.cpp \
-    principal.cpp
+    principal.cpp \
+    registro.cpp \
+    campotexto.cpp
 
 HEADERS += \
     image.hpp \
-    game.hpp \
     indexedbutton.hpp \
     scene.h \
     squircle.h \
     database.hpp \
     boton.h \
-    principal.h
+    principal.h \
+    registro.h \
+    campotexto.h
 
 FORMS += \
-    game.ui \
     scene.ui \
     boton.ui \
-    principal.ui
+    principal.ui \
+    registro.ui
 
 RESOURCES += \
     resources.qrc \

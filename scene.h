@@ -28,11 +28,16 @@ public:
     explicit Scene(QWidget *parent = 0);
     ~Scene();
 
+    void apagarCamara();
+    void encenderCamara();
+
 private:
     Ui::Scene *ui;
 
     QNetworkAccessManager *manager;
     QTimer * placeTimer;
+
+
 
 public slots:
     void slot_imageProcessing( const QString& image );

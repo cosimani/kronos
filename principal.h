@@ -3,7 +3,7 @@
 
 #include <QWidget>
 
-class Game;
+class Registro;
 
 namespace Ui {
 class Principal;
@@ -22,10 +22,12 @@ protected:
 
 private:
     Ui::Principal *ui;
-    Game * game;
+    Registro * registro;
 
+    void configurarWidgets();
 private slots:
-    void showGame();
+    void showIngreso();
+    void showSalida();
 };
 
 #endif // PRINCIPAL_H

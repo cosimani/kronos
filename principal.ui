@@ -103,7 +103,7 @@
        </spacer>
       </item>
       <item row="6" column="0">
-       <widget class="Boton" name="b5" native="true">
+       <widget class="Boton" name="pbSalida" native="true">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
           <horstretch>0</horstretch>
@@ -126,7 +126,7 @@
        </spacer>
       </item>
       <item row="2" column="0">
-       <widget class="Boton" name="pbMiDentista" native="true">
+       <widget class="Boton" name="pbGame" native="true">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
           <horstretch>0</horstretch>
@@ -146,7 +146,7 @@
        </widget>
       </item>
       <item row="3" column="0">
-       <widget class="Boton" name="pbVisitas" native="true">
+       <widget class="Boton" name="pbIngreso" native="true">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
           <horstretch>0</horstretch>

@@ -20,7 +20,7 @@ public:
 
     void setColor( QString color );
     void setTexto( QString texto );
-
+    void setFont( const QFont & font );
 
 private:
     Ui::Boton *ui;

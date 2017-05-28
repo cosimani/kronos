@@ -18,8 +18,8 @@ Boton::Boton(QWidget *parent) : QWidget(parent),
 //    QFont font("Helvetica", this->width()/20, QFont::Bold);
 //    QFont font("BethHand", this->width()/20, QFont::Bold);
 //    QFont font("Avant que...", this->width()/20, QFont::Bold);
-    QFont font("Angelina", this->width()/15, QFont::Bold);
-    ui->lTexto->setFont(font);
+//    QFont font("Angelina", this->width()/15, QFont::Bold);
+//    ui->lTexto->setFont(font);
 
 //    this->setMouseTracking( true );
 }
@@ -41,6 +41,11 @@ void Boton::setColor(QString color)
 void Boton::setTexto(QString texto)
 {
     ui->lTexto->setText( texto );
+}
+
+void Boton::setFont(const QFont &font)
+{
+    ui->lTexto->setFont(font);
 }
 
 void Boton::paintEvent(QPaintEvent *)
