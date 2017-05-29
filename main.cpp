@@ -20,6 +20,11 @@ int main( int argc, char **argv )
     QApplication application( argc, argv );
 
     QFontDatabase::addApplicationFont(":/resources/fuentes/angelina.TTF");
+    QFontDatabase::addApplicationFont(":/resources/fuentes/Bethhrg_.ttf");
+
+//    QFontDatabase baseFuentes;
+//    qDebug() << baseFuentes.families();
+
 
     QQuickView * view = NULL;
 

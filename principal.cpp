@@ -79,8 +79,6 @@ void Principal::configurarWidgets()
     ui->pbIngreso->setFont(font);
     ui->boton3->setColor( "#673ab7" );  ui->boton3->setTexto( "Boton 3" );
     ui->boton3->setFont(font);
-    ui->boton4->setColor( "#3f51b5" );  ui->boton4->setTexto( "Boton 4" );
-    ui->boton4->setFont(font);
     ui->pbSalida->setColor( "#009688" );  ui->pbSalida->setTexto( "Registrar salida" );
     ui->pbSalida->setFont(font);
 

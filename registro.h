@@ -19,14 +19,22 @@ public:
     void setSalida();
 
 protected:
-    void closeEvent(QCloseEvent *);
+    void closeEvent(QCloseEvent *e);
     void showEvent(QShowEvent *);
     void resizeEvent(QResizeEvent *);
+
+    void mousePressEvent(QMouseEvent *e);
+    void keyPressEvent(QKeyEvent * e);
 
 private:
     Ui::Registro *ui;
 
     void configurarWidgets();
+
+
+private slots:
+    void slot_cambioFoco();
+    void slot_mostrarTecladito( bool mostrar );
 };
 
 #endif // REGISTRO_H

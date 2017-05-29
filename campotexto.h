@@ -3,38 +3,11 @@
 
 #include <QWidget>
 #include <QPainter>
-#include <QPalette>
 #include <QFont>
-
-class Numerito : public QWidget
-{
-    Q_OBJECT
-public:
-    explicit Numerito(QWidget *parent = 0) : QWidget(parent)  {
-        QPalette palette = this->palette();
-        palette.setColor( QPalette::WindowText, QColor( 255, 255, 255 ) );
-        this->setPalette( palette );
-
-        QFont font("Angelina", this->width()/15, QFont::Bold);
-        //ui->lTexto->setFont(font);
-
-    }
-
-protected:
-    void paintEvent(QPaintEvent *)  {
-        QPainter painter( this );
-
-    }
-
-    void mousePressEvent(QMouseEvent *)  {
-        emit signal_clic();
-    }
-
-signals:
-    void signal_clic();
-
-public slots:
-};
+#include <QColor>
+#include <QMouseEvent>
+#include <QKeyEvent>
+#include <QTimer>
 
 
 class CampoTexto : public QWidget
@@ -43,9 +16,30 @@ class CampoTexto : public QWidget
 public:
     explicit CampoTexto(QWidget *parent = 0);
 
+    bool getFoco() const;
+    void setFoco(bool value);
+
+    QString getTexto() const;
+
+protected:
+    void paintEvent(QPaintEvent *);
+    void mousePressEvent(QMouseEvent *);
+    void keyPressEvent( QKeyEvent * e );
+
+private:
+    QString texto;
+    QTimer * timer;
+    bool isCursorVisible;
+
+    // Es un bool para almacenar si esta en foco este campo. Ya que hay problemas con el manejo de foco
+    // con lo de Qt
+    bool foco;
+
 signals:
+    void signal_foco( bool isFocused );
 
 public slots:
+    void slot_escribir( QString texto );
 };
 
 #endif // CAMPOTEXTO_H

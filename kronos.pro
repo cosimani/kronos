@@ -73,7 +73,10 @@ SOURCES += \
     boton.cpp \
     principal.cpp \
     registro.cpp \
-    campotexto.cpp
+    campotexto.cpp \
+    miqlineedit.cpp \
+    tecladito.cpp \
+    numerito.cpp
 
 HEADERS += \
     image.hpp \
@@ -84,7 +87,10 @@ HEADERS += \
     boton.h \
     principal.h \
     registro.h \
-    campotexto.h
+    campotexto.h \
+    miqlineedit.h \
+    tecladito.h \
+    numerito.h
 
 FORMS += \
     scene.ui \
