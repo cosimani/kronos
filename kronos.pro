@@ -66,7 +66,6 @@ contains(ANDROID_TARGET_ARCH, armeabi-v7a)  {  # Para Android
 SOURCES += \
     main.cpp \
     image.cpp \
-    indexedbutton.cpp \
     scene.cpp \
     squircle.cpp \
     database.cpp \
@@ -74,13 +73,11 @@ SOURCES += \
     principal.cpp \
     registro.cpp \
     campotexto.cpp \
-    miqlineedit.cpp \
     tecladito.cpp \
     numerito.cpp
 
 HEADERS += \
     image.hpp \
-    indexedbutton.hpp \
     scene.h \
     squircle.h \
     database.hpp \
@@ -88,7 +85,6 @@ HEADERS += \
     principal.h \
     registro.h \
     campotexto.h \
-    miqlineedit.h \
     tecladito.h \
     numerito.h
 

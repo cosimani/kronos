@@ -1,18 +1,8 @@
 <RCC>
     <qresource prefix="/">
-        <file>resources/images/ubp.png</file>
-        <file>resources/images/background.jpg</file>
-        <file>resources/images/isologo.png</file>
         <file>resources/images/background3.jpg</file>
-        <file>resources/fuentes/album-avantquelombre.ttf</file>
         <file>resources/fuentes/angelina.TTF</file>
         <file>resources/fuentes/Bethhrg_.ttf</file>
-        <file>resources/fuentes/Complete in Him.ttf</file>
-        <file>resources/fuentes/laurencb-demo.ttf</file>
-        <file>resources/fuentes/RobotoCondensed-Bold.ttf</file>
-        <file>resources/fuentes/RobotoCondensed-Light.ttf</file>
-        <file>resources/fuentes/RobotoCondensed-Regular.ttf</file>
-        <file>resources/fuentes/SERERG__.TTF</file>
-        <file>resources/fuentes/SimpleLife.ttf</file>
+        <file>resources/images/isologo3.png</file>
     </qresource>
 </RCC>

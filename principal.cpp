@@ -73,12 +73,12 @@ void Principal::configurarWidgets()
     ui->label->setFont(font);
     ui->label->setText( "Kronos" );
 
-    ui->boton1->setColor( "#e91e63" );  ui->boton1->setTexto( "Boton 1" );
-    ui->boton1->setFont(font);
+//    ui->boton1->setColor( "#e91e63" );  ui->boton1->setTexto( "Boton 1" );
+//    ui->boton1->setFont(font);
     ui->pbIngreso->setColor( "#9c27b0" );  ui->pbIngreso->setTexto( "Registrar ingreso" );
     ui->pbIngreso->setFont(font);
-    ui->boton3->setColor( "#673ab7" );  ui->boton3->setTexto( "Boton 3" );
-    ui->boton3->setFont(font);
+//    ui->boton3->setColor( "#673ab7" );  ui->boton3->setTexto( "Boton 3" );
+//    ui->boton3->setFont(font);
     ui->pbSalida->setColor( "#009688" );  ui->pbSalida->setTexto( "Registrar salida" );
     ui->pbSalida->setFont(font);
 

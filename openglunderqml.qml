@@ -24,7 +24,7 @@ Item {
 
     Image {
         id : imagen
-        source: "resources/images/isologo.png"
+        source: "resources/images/isologo3.png"
         anchors.fill: item
 
         Squircle {
