@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import QtMultimedia 5.7
+import QtQuick.Controls 1.2
 
 Rectangle  {
     id : cameraUI
@@ -47,6 +48,10 @@ Rectangle  {
             //            resolution: "640x480"
             onImageCaptured: {
 
+                photoPreview.source = preview  // Show the preview in an Image
+                photoPreview.visible = true;
+                previewTimer.running = true;
+
                 cameraUI.signal_imageProcessing(preview)
 
             }
@@ -58,6 +63,10 @@ Rectangle  {
         }
     }
 
+    Image  {
+        id: photoPreview
+        anchors.fill: viewfinder
+    }
 
     MouseArea {
         anchors.fill: parent
@@ -80,4 +89,12 @@ Rectangle  {
         source: camera
         autoOrientation: true
     }
+
+    Timer  {
+        id: previewTimer
+        interval: 3000
+        onTriggered: photoPreview.visible = false;
+    }
+
+
 }

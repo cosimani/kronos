@@ -75,7 +75,8 @@ SOURCES += \
     campotexto.cpp \
     tecladito.cpp \
     numerito.cpp \
-    datamanager.cpp
+    datamanager.cpp \
+    ventana.cpp
 
 HEADERS += \
     image.hpp \
@@ -88,13 +89,15 @@ HEADERS += \
     campotexto.h \
     tecladito.h \
     numerito.h \
-    datamanager.h
+    datamanager.h \
+    ventana.h
 
 FORMS += \
     scene.ui \
     boton.ui \
     principal.ui \
-    registro.ui
+    registro.ui \
+    ventana.ui
 
 RESOURCES += \
     resources.qrc \

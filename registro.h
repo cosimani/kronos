@@ -18,23 +18,26 @@ public:
     void setIngreso();
     void setSalida();
 
+    void configurarWidgets();
+
+    void setIdGuardia(int value);
+
 protected:
     void closeEvent(QCloseEvent *e);
     void showEvent(QShowEvent *);
     void resizeEvent(QResizeEvent *);
 
     void mousePressEvent(QMouseEvent *e);
-    void keyPressEvent(QKeyEvent * e);
+//    void keyPressEvent(QKeyEvent * e);
 
 private:
     Ui::Registro *ui;
 
-    void configurarWidgets();
+    int idGuardia;
 
 
 private slots:
     void slot_cambioFoco();
-    void slot_mostrarTecladito( bool mostrar );
 
     void slot_registrar();
 

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Ventana</class>
+ <widget class="QWidget" name="Ventana">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>309</width>
+    <height>457</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
+   <property name="spacing">
+    <number>0</number>
+   </property>
+   <item row="0" column="0">
+    <widget class="Image" name="fondo" native="true">
+     <widget class="Tecladito" name="tecladito" native="true">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>150</y>
+        <width>271</width>
+        <height>80</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="Boton" name="bIngreso" native="true">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>290</y>
+        <width>91</width>
+        <height>41</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="Boton" name="bSalida" native="true">
+      <property name="geometry">
+       <rect>
+        <x>160</x>
+        <y>290</y>
+        <width>121</width>
+        <height>41</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label">
+      <property name="geometry">
+       <rect>
+        <x>80</x>
+        <y>20</y>
+        <width>59</width>
+        <height>14</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="CampoTexto" name="campoDni" native="true">
+      <property name="geometry">
+       <rect>
+        <x>50</x>
+        <y>60</y>
+        <width>221</width>
+        <height>31</height>
+       </rect>
+      </property>
+     </widget>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>Boton</class>
+   <extends>QWidget</extends>
+   <header>boton.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>Image</class>
+   <extends>QWidget</extends>
+   <header>image.hpp</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>CampoTexto</class>
+   <extends>QWidget</extends>
+   <header>campotexto.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>Tecladito</class>
+   <extends>QWidget</extends>
+   <header>tecladito.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

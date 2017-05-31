@@ -37,10 +37,6 @@ public:
     bool applyForManager();
     void leaveManager();
 
-    bool requestIn( QString dni,
-                    QString password,
-                    QString time );
-
     bool requestInit(QString usuario,
                       QString password,
                       QString nombre,
@@ -51,8 +47,12 @@ public:
 
     bool requestListaDentistas();
 
+    bool requestIn( QString guardId, QString time );
+    bool requestOut(QString guardId, QString time);
 
-    bool requestOut(QString dni, QString password, QString time);
+    bool requestLogin(QString dni, QString password);
+
+
 private slots:
     void responseIn( QNetworkReply *reply );
     void responseInit( QNetworkReply *reply );
@@ -60,7 +60,20 @@ private slots:
     void responseListaDentistas( QNetworkReply *reply );
 
     void responseOut(QNetworkReply *reply);
+    void responseLogin(QNetworkReply *reply);
 signals:
+    void readyLogin( bool ok );
+
+    /**
+     * @brief readyLoginMensaje Devuelve el mensaje que se interpreta del json devuelto por el webservice
+     * @param mensaje 3 opciones:
+     *      - id                - Es un numero que representa el id del guardia
+     *      - few_parameters    - Faltan parametros en la url
+     *      - invalid_login     - No existen esas credenciales de usuario en la base
+     *      - desconocido       - Quien sabe
+     */
+    void readyLoginMensaje( QString mensaje );
+
     void readyIn( bool ok );
     void readyOut( bool ok );
     void availableName( bool available );

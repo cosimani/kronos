@@ -1,6 +1,9 @@
 #include "datamanager.h"
 
 #include <QRegularExpression>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QJsonValue>
 
 DataManager *DataManager::instance = NULL;
 
@@ -94,14 +97,25 @@ void DataManager::leaveManager()
     this->setAvailableManager( true );
 }
 
-bool DataManager::requestIn( QString dni,
-                             QString password,
+bool DataManager::requestLogin( QString dni,
+                                QString password )
+{
+    QVector< QStringList >params;
+    params.append( QStringList() << "action" << "login" );
+    params.append( QStringList() << "dni" << dni );
+    params.append( QStringList() << "password" << password );
+
+    if( !this->doQuery( params ) ) return false;
+    connect( manager, SIGNAL( finished( QNetworkReply* ) ), SLOT( responseLogin( QNetworkReply* ) ) );
+    return true;
+}
+
+bool DataManager::requestIn( QString guardId,
                              QString time )
 {
     QVector< QStringList >params;
-    params.append( QStringList() << "action" << "in_osi" );
-    params.append( QStringList() << "dni" << dni );
-    params.append( QStringList() << "password" << password );
+    params.append( QStringList() << "action" << "in" );
+    params.append( QStringList() << "guardId" << guardId );
     params.append( QStringList() << "time" << time );
 
     if( !this->doQuery( params ) ) return false;
@@ -109,21 +123,18 @@ bool DataManager::requestIn( QString dni,
     return true;
 }
 
-bool DataManager::requestOut( QString dni,
-                              QString password,
+bool DataManager::requestOut( QString guardId,
                               QString time )
 {
     QVector< QStringList >params;
-    params.append( QStringList() << "action" << "out_osi" );
-    params.append( QStringList() << "dni" << dni );
-    params.append( QStringList() << "password" << password );
+    params.append( QStringList() << "action" << "out" );
+    params.append( QStringList() << "guardId" << guardId );
     params.append( QStringList() << "time" << time );
 
     if( !this->doQuery( params ) ) return false;
     connect( manager, SIGNAL( finished( QNetworkReply* ) ), SLOT( responseOut( QNetworkReply* ) ) );
     return true;
 }
-
 
 bool DataManager::requestInit( QString usuario,
                                QString password,
@@ -202,21 +213,79 @@ QString DataManager::eliminaAcentos( QString s )  {
     return s;
 }
 
-void DataManager::responseIn( QNetworkReply *reply )
+void DataManager::responseLogin( QNetworkReply *reply )
 {
-    qDebug() << "entra a DataManager::responseIn";
+    QByteArray ba = reply->readAll();
+
+    qDebug() << "entra a DataManager::responseLogin" << ba;
 
     if( ! reply->bytesAvailable() )  {
         qDebug() << "void DataManager::responseLogin( QNetworkReply *reply ) showErrorAndFinish";
-        emit readyIn( false );
+//        emit readyLoginMensaje( "desconocido" );
+
         this->showErrorAndFinish();
     }
 
     this->leaveManager();
 
-    QString replyString( QString::fromLatin1( reply->readAll() ) );
+    QString replyString( QString::fromLatin1( ba ) );
 
-    qDebug() << replyString;
+    qDebug() << "entra a DataManager::responseLogin replyString=" << replyString;
+
+    if( replyString.isEmpty() )
+    {
+        qDebug() << "Error, algun error al guardar u obtener los datos del servidor 1";
+        emit readyLoginMensaje( "desconocido" );
+        return;
+    }
+    else  {
+        QJsonDocument d = QJsonDocument::fromJson(replyString.toUtf8());
+        QJsonObject sett2 = d.object();
+        QJsonValue valueStatus = sett2.value(QString("status"));
+        QJsonValue valueId = sett2.value(QString("id"));
+
+        QString status = valueStatus.toString();
+        QString id = QString::number(valueId.toInt());
+
+        if ( ! status.isEmpty() )  {
+            if ( valueStatus.toString() == "few_parameters" )  {
+                emit readyLoginMensaje( "few_parameters" );
+            }
+            else if ( valueStatus.toString() == "invalid_login" )  {
+                emit readyLoginMensaje( "invalid_login" );
+            }
+            else  {
+                emit readyLoginMensaje( "desconocido" );
+            }
+        }
+        else if ( ! id.isEmpty() )  {
+            emit readyLoginMensaje( id );
+        }
+        else  {
+            emit readyLoginMensaje( "desconocido" );
+        }
+    }
+}
+
+void DataManager::responseIn( QNetworkReply *reply )
+{
+
+    QByteArray ba = reply->readAll();
+
+    qDebug() << "entra a DataManager::responseIn" << ba;
+
+    if( ! reply->bytesAvailable() )  {
+        qDebug() << "void DataManager::responseIn( QNetworkReply *reply ) showErrorAndFinish";
+//        emit readyIn( false );
+
+        this->showErrorAndFinish();
+    }
+
+    this->leaveManager();
+
+    QString replyString( QString::fromLatin1( ba ) );
+
+    qDebug() << "entra a DataManager::responseIn replyString=" << replyString;
 
     if( replyString.isEmpty() )
     {
@@ -224,32 +293,52 @@ void DataManager::responseIn( QNetworkReply *reply )
         emit readyIn( false );
         return;
     }
+    else  {
+        QJsonDocument d = QJsonDocument::fromJson(replyString.toUtf8());
+        QJsonObject sett2 = d.object();
+        QJsonValue valueStatus = sett2.value(QString("status"));
 
-    if( replyString == "{\"status\":\"in_ok\"}" )
-    {
-        emit readyIn( true );
-    }
-    else
-    {
-        emit readyIn( false );
+        QString status = valueStatus.toString();
+
+        qWarning() << "/////////////////" << status;
+
+        if ( ! status.isEmpty() )  {
+            if ( valueStatus.toString() == "few_parameters" )  {
+                emit readyIn( false );
+            }
+            else if ( valueStatus.toString() == "invalid_in" )  {
+                emit readyIn( false );
+            }
+            else if ( valueStatus.toString() == "in_ok" )  {
+                emit readyIn( true );
+            }
+            else  {
+                emit readyIn( false );
+            }
+        }
     }
 }
+
 
 void DataManager::responseOut( QNetworkReply *reply )
 {
-    qDebug() << "entra a DataManager::responseIn";
+
+    QByteArray ba = reply->readAll();
+
+    qDebug() << "entra a DataManager::responseOut" << ba;
 
     if( ! reply->bytesAvailable() )  {
-        qDebug() << "void DataManager::responseLogin( QNetworkReply *reply ) showErrorAndFinish";
-        emit readyOut( false );
+        qDebug() << "void DataManager::responseOut( QNetworkReply *reply ) showErrorAndFinish";
+//        emit readyIn( false );
+
         this->showErrorAndFinish();
     }
 
     this->leaveManager();
 
-    QString replyString( QString::fromLatin1( reply->readAll() ) );
+    QString replyString( QString::fromLatin1( ba ) );
 
-    qDebug() << replyString;
+    qDebug() << "entra a DataManager::responseOut replyString=" << replyString;
 
     if( replyString.isEmpty() )
     {
@@ -257,16 +346,32 @@ void DataManager::responseOut( QNetworkReply *reply )
         emit readyOut( false );
         return;
     }
+    else  {
+        QJsonDocument d = QJsonDocument::fromJson(replyString.toUtf8());
+        QJsonObject sett2 = d.object();
+        QJsonValue valueStatus = sett2.value(QString("status"));
 
-    if( replyString == "{\"status\":\"out_ok\"}" )
-    {
-        emit readyOut( true );
-    }
-    else
-    {
-        emit readyOut( false );
+        QString status = valueStatus.toString();
+
+        qWarning() << "/////////////////" << status;
+
+        if ( ! status.isEmpty() )  {
+            if ( valueStatus.toString() == "few_parameters" )  {
+                emit readyOut( false );
+            }
+            else if ( valueStatus.toString() == "invalid_out" )  {
+                emit readyOut( false );
+            }
+            else if ( valueStatus.toString() == "out_ok" )  {
+                emit readyOut( true );
+            }
+            else  {
+                emit readyOut( false );
+            }
+        }
     }
 }
+
 
 void DataManager::responseInit( QNetworkReply *reply )
 {

@@ -31,22 +31,6 @@
    </property>
    <item row="0" column="0">
     <widget class="Image" name="fondo" native="true">
-     <widget class="Boton" name="pbRegistrar" native="true">
-      <property name="geometry">
-       <rect>
-        <x>20</x>
-        <y>400</y>
-        <width>241</width>
-        <height>41</height>
-       </rect>
-      </property>
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-     </widget>
      <widget class="Scene" name="scene" native="true">
       <property name="geometry">
        <rect>
@@ -73,33 +57,10 @@
        </rect>
       </property>
       <property name="text">
-       <string>Registre su ingreso y salida</string>
+       <string>Registre su ingreso o salida</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-     <widget class="CampoTexto" name="campoLegajo" native="true">
-      <property name="geometry">
-       <rect>
-        <x>40</x>
-        <y>170</y>
-        <width>161</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="focusPolicy">
-       <enum>Qt::NoFocus</enum>
-      </property>
-     </widget>
-     <widget class="Tecladito" name="tecladito" native="true">
-      <property name="geometry">
-       <rect>
-        <x>60</x>
-        <y>220</y>
-        <width>191</width>
-        <height>51</height>
-       </rect>
       </property>
      </widget>
     </widget>
@@ -108,33 +69,15 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>Scene</class>
-   <extends>QWidget</extends>
-   <header>scene.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>Boton</class>
-   <extends>QWidget</extends>
-   <header>boton.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
    <class>Image</class>
    <extends>QWidget</extends>
    <header>image.hpp</header>
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>CampoTexto</class>
+   <class>Scene</class>
    <extends>QWidget</extends>
-   <header>campotexto.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>Tecladito</class>
-   <extends>QWidget</extends>
-   <header>tecladito.h</header>
+   <header>scene.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

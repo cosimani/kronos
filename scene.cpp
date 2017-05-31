@@ -16,6 +16,7 @@
 #include <QBuffer>
 #include <QDateTime>
 #include "database.hpp"
+#include "datamanager.h"
 
 
 Scene::Scene(QWidget *parent) : QWidget(parent),
@@ -123,10 +124,50 @@ void Scene::slot_imageProcessing( const QString& path )  {
 //    qDebug() << imageBase64;
 
 
-    QStringList data( Database::getInstance()->readData() );
+    // La foto se guardara con el siguiente nombre:
+    // idGuardia_dni_currentMSecsSinceEpoch.txt
+    // donde
+    // currentMSecsSinceEpoch = es la hora que se guardo en el server pero en formato con miliseg1970
 
-    QString dni = data.at(0);
-    QString nombreFoto = dni + "_" + QString::number(QDateTime::currentMSecsSinceEpoch());
+    QString idGuardia = Database::getInstance()->getId_guardia();
+    QString dni = Database::getInstance()->getDni_guardia();
+
+    QDateTime now = QDateTime::currentDateTime();
+
+    QString time = now.toString("yyyy-MM-dd hh:mm:ss");
+
+
+    if ( Database::getInstance()->getMarcarQue() == "llegada" )  {
+
+        if( !DataManager::getInstance()->requestIn( idGuardia, time ) )
+        {
+            qDebug() << "Solicitud inicial incorrecta";
+        }
+        else
+        {
+            qDebug() << "Solicitud inicial correcta";
+        }
+    }
+
+    if ( Database::getInstance()->getMarcarQue() == "salida" )  {
+        if( !DataManager::getInstance()->requestOut( idGuardia, time ) )
+        {
+            qDebug() << "Solicitud inicial incorrecta";
+        }
+        else
+        {
+            qDebug() << "Solicitud inicial correcta";
+        }
+
+    }
+
+
+//    QStringList data( Database::getInstance()->readData() );
+//    QString dni = data.at(0);
+
+    QString timeFormato1970 = QString::number(now.toMSecsSinceEpoch());
+
+    QString nombreFoto = idGuardia + "_" + dni + "_" + timeFormato1970;
 
     QString sUrl( "http://www.vayra.com.ar/kronos/upload.php?" );
     sUrl.append( "apiKey=kr0n05" );
@@ -136,18 +177,17 @@ void Scene::slot_imageProcessing( const QString& path )  {
     request.setUrl(QUrl(sUrl));
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
 
-//    QByteArray baDatos = "{\"encodedImage\": \"" + imageBase64.toUtf8() + "\"}";
+////    QByteArray baDatos = "{\"encodedImage\": \"" + imageBase64.toUtf8() + "\"}";
 
     QByteArray baDatos = "{\"encodedImage\": \"" + byteArray.toBase64() + "\"}";
 
     manager->post(request, baDatos);
 
-
 }
 
 void Scene::slot_imagePath(const QString &path)
 {
-//    qDebug() << " Se borro la imagen " << path << QFile::remove(path);
+    qDebug() << " Se borro la imagen " << path << QFile::remove(path);
 }
 
 void Scene::slot_uploadFinished(QNetworkReply *reply)

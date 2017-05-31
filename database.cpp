@@ -33,6 +33,36 @@ void Database::disconnectDatabase()
     database.close();
 }
 
+QString Database::getMarcarQue() const
+{
+    return marcarQue;
+}
+
+void Database::setMarcarQue(const QString &value)
+{
+    marcarQue = value;
+}
+
+QString Database::getDni_guardia() const
+{
+    return dni_guardia;
+}
+
+void Database::setDni_guardia(const QString &value)
+{
+    dni_guardia = value;
+}
+
+QString Database::getId_guardia() const
+{
+    return id_guardia;
+}
+
+void Database::setId_guardia(const QString &value)
+{
+    id_guardia = value;
+}
+
 int Database::checkLogin()
 {
     if( this->connectDatabase() )

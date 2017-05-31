@@ -9,6 +9,7 @@
 #include "database.hpp"
 
 #include "principal.h"
+#include "ventana.h"
 
 #include <QTimer>
 #include <QFontDatabase>
@@ -28,7 +29,8 @@ int main( int argc, char **argv )
 
     QQuickView * view = NULL;
 
-    Principal * principal = NULL;
+//    Principal * principal = NULL;
+    Ventana * ventana = NULL;
 
     switch( Database::getInstance()->checkLogin() )
     {
@@ -49,9 +51,14 @@ int main( int argc, char **argv )
     case 1:
         qDebug() << "Ya entro antes";
 
-        principal = new Principal();
+//        principal = new Principal();
+        ventana = new Ventana();
 
-        principal->show();
+        ventana->show();
+
+        ventana->configurarWidgets();
+
+//        principal->show();
 
         break;
 
