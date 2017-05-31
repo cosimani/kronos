@@ -22,6 +22,8 @@ public:
     void setTexto( QString texto );
     void setFont( const QFont & font );
 
+    QString getTexto();
+
 private:
     Ui::Boton *ui;
 

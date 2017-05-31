@@ -37,6 +37,7 @@ private:
 
 signals:
     void signal_foco( bool isFocused );
+    void signal_enter();
 
 public slots:
     void slot_escribir( QString texto );

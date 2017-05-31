@@ -35,6 +35,11 @@ private:
 private slots:
     void slot_cambioFoco();
     void slot_mostrarTecladito( bool mostrar );
+
+    void slot_registrar();
+
+    void slot_mensajeIn(bool ready );
+    void slot_mensajeOut(bool ready);
 };
 
 #endif // REGISTRO_H

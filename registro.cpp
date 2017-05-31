@@ -4,6 +4,10 @@
 #include <QResizeEvent>
 #include <QMessageBox>
 
+#include "datamanager.h"
+
+#include <QDateTime>
+
 Registro::Registro(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Registro)
@@ -20,6 +24,17 @@ Registro::Registro(QWidget *parent) :
 
     connect( ui->tecladito, SIGNAL( signal_teclaPulsada( QString ) ),
              ui->campoLegajo, SLOT( slot_escribir( QString ) ) );
+
+    connect(ui->pbRegistrar, SIGNAL(clic()), this, SLOT(slot_registrar()));
+    connect(ui->campoLegajo, SIGNAL(signal_enter()), this, SLOT(slot_registrar()));
+
+    connect(DataManager::getInstance(), SIGNAL(readyIn(bool)),
+            this, SLOT(slot_mensajeIn(bool)));
+
+    connect(DataManager::getInstance(), SIGNAL(readyOut(bool)),
+            this, SLOT(slot_mensajeOut(bool)));
+
+
 
 }
 
@@ -205,4 +220,64 @@ void Registro::slot_mostrarTecladito(bool mostrar)
         }
 
     }
+}
+
+void Registro::slot_registrar()
+{
+
+    QDateTime now = QDateTime::currentDateTime();
+
+    QString time = now.toString("yyyy-MM-dd hh:mm:ss");
+
+    if (ui->pbRegistrar->getTexto() == "Registrar llegada" )  {
+
+        if( !DataManager::getInstance()->requestIn( ui->campoLegajo->getTexto(),
+                                                    ui->campoLegajo->getTexto(),
+                                                    time ) )
+        {
+            qDebug() << "Solicitud inicial incorrecta";
+        }
+        else
+        {
+            qDebug() << "Solicitud inicial correcta";
+        }
+    }
+
+    if (ui->pbRegistrar->getTexto() == "Registrar salida" )  {
+        if( !DataManager::getInstance()->requestOut( ui->campoLegajo->getTexto(),
+                                                     ui->campoLegajo->getTexto(),
+                                                     time ) )
+        {
+            qDebug() << "Solicitud inicial incorrecta";
+        }
+        else
+        {
+            qDebug() << "Solicitud inicial correcta";
+        }
+
+    }
+}
+
+void Registro::slot_mensajeIn( bool ready )
+{
+    if ( ready )  {
+        QMessageBox::information( this, "Listo!", "El ingreso fue registrado con éxito!");
+        qApp->quit();
+    }
+    else
+        QMessageBox::information( this, "Atención!", "No se pudo registrar el ingreso. "
+                                  "Verifique su DNI, compruebe que está conectado a internet"
+                                  " e intente de nuevo.");
+}
+
+void Registro::slot_mensajeOut( bool ready )
+{
+    if ( ready )  {
+        QMessageBox::information( this, "Listo!", "La salida fue registrada con éxito!");
+        qApp->quit();
+    }
+    else
+        QMessageBox::information( this, "Atención!", "No se pudo registrar la salida. "
+                                  "Verifique su DNI, compruebe que está conectado a internet"
+                                  " e intente de nuevo.");
 }

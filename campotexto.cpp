@@ -21,6 +21,7 @@ void CampoTexto::slot_escribir( QString texto )
     else if ( texto == "Enter" )  {
         foco = false;
         emit signal_foco( false );
+        emit signal_enter();
     }
     else
         this->texto.append( texto );

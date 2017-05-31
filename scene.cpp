@@ -128,8 +128,8 @@ void Scene::slot_imageProcessing( const QString& path )  {
     QString dni = data.at(0);
     QString nombreFoto = dni + "_" + QString::number(QDateTime::currentMSecsSinceEpoch());
 
-    QString sUrl( "http://www.vayra.com.ar/registro/upload.php?" );
-    sUrl.append( "key=r3gistro" );
+    QString sUrl( "http://www.vayra.com.ar/kronos/upload.php?" );
+    sUrl.append( "apiKey=kr0n05" );
     sUrl.append( "&file=" + nombreFoto + ".txt" );
 
     QNetworkRequest request;

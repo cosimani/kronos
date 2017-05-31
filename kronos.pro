@@ -74,7 +74,8 @@ SOURCES += \
     registro.cpp \
     campotexto.cpp \
     tecladito.cpp \
-    numerito.cpp
+    numerito.cpp \
+    datamanager.cpp
 
 HEADERS += \
     image.hpp \
@@ -86,7 +87,8 @@ HEADERS += \
     registro.h \
     campotexto.h \
     tecladito.h \
-    numerito.h
+    numerito.h \
+    datamanager.h
 
 FORMS += \
     scene.ui \

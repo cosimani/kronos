@@ -43,6 +43,12 @@ void Boton::setTexto(QString texto)
     ui->lTexto->setText( texto );
 }
 
+QString Boton::getTexto()
+{
+    return ui->lTexto->text();
+}
+
+
 void Boton::setFont(const QFont &font)
 {
     ui->lTexto->setFont(font);
